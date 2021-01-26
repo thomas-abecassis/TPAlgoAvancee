@@ -4,7 +4,7 @@
 
 ppile_t creer_pile ()
 {
-  ppile_t pil;
+  ppile_t pil = malloc(sizeof(pile_t));
   pil->sommet=0;
   
   return pil ;
@@ -13,7 +13,7 @@ ppile_t creer_pile ()
 int detruire_pile (ppile_t p)
 {
   p=NULL;
-
+  free(p);
   return 0 ;
 }  
 
@@ -28,7 +28,7 @@ int pile_vide (ppile_t p)
 
 int pile_pleine (ppile_t p)
  {
-  if(p->sommet==MAX_PILE_SIZE){
+  if(p->sommet==MAX_PILE_SIZE-1){
     return 1;
   }
 
@@ -37,9 +37,9 @@ int pile_pleine (ppile_t p)
 
 pnoeud_t depiler (ppile_t p)
 {
-  if(pile_vide(p)==0){
+  if(!pile_vide(p)){
     p->sommet--;
-    return p->Tab[p->sommet];
+    return p->Tab[p->sommet+1];
   }
 
   return NULL ;
@@ -48,12 +48,12 @@ pnoeud_t depiler (ppile_t p)
 
 int empiler (ppile_t p, pnoeud_t pn)
   {
-  if(p->sommet<MAX_PILE_SIZE){
-    p->Tab[p->sommet]=pn;
+  if(!pile_pleine(p)){
     p->sommet++;
-
+    p->Tab[p->sommet]=pn;
+    return 0;
   }
 
-  return 0 ;
+  return -1;
 
 }

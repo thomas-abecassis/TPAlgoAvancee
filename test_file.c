@@ -18,6 +18,9 @@ int main(){
 
     printf("file vide ? : %d \n", file_vide(file)); // normalement vide
 
+    enfiler(file, n1);
+    enfiler(file, n1);
+
     printf("file vide ? : %d \n", file_vide(file)); // normalement pas vide
     printf("file pleine ? : %d \n", file_pleine(file)); // normalement pas pleine
 
@@ -29,10 +32,10 @@ int main(){
     enfiler(file, n2);//test qu'il n'y ai pas d'erreurs
 
     printf("premier element : %d \n", defiler(file)->cle); //1
-    printf("deuxieme element : %d \n", defiler(file)->cle); //2
-    printf("troisieme element : %d \n", defiler(file)->cle); //1
+    printf("deuxieme element : %d \n", defiler(file)->cle); //1
+    printf("troisieme element : %d \n", defiler(file)->cle); //2
     printf("quatrieme element : %d \n", defiler(file)->cle); //2
-    printf("cinquieme element : %d \n", defiler(file)->cle); //1
+    printf("cinquieme element : %d \n", defiler(file)->cle); //2
     printf("sixième element : %d \n", defiler(file)->cle); //2
     detruire_file(file);
 }
