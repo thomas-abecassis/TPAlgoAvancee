@@ -4,43 +4,43 @@
 
 ppile_t creer_pile ()
 {
-  /*
-    a completer
-  */
-  return NULL ;
+  ppile_t pil;
+  pil->sommet=0;
+  
+  return pil ;
 }
 
 int detruire_pile (ppile_t p)
 {
-  /*
-    a completer
-  */
+  p=NULL;
+
   return 0 ;
 }  
 
 int pile_vide (ppile_t p)
 {
-  /*
-     a completer
-  */
+  if(p->sommet==0){
+    return 1;
+  }
 
   return 0 ;
 }
 
 int pile_pleine (ppile_t p)
  {
-  /*
-     a completer
-  */
+  if(p->sommet==MAX_PILE_SIZE){
+    return 1;
+  }
 
   return 0 ;
 } 
 
 pnoeud_t depiler (ppile_t p)
 {
-  /*
-     a completer
-  */
+  if(pile_vide(p)==0){
+    p->sommet--;
+    return p->Tab[p->sommet];
+  }
 
   return NULL ;
 
@@ -48,9 +48,11 @@ pnoeud_t depiler (ppile_t p)
 
 int empiler (ppile_t p, pnoeud_t pn)
   {
-  /*
-     a completer
-  */
+  if(p->sommet<MAX_PILE_SIZE){
+    p->Tab[p->sommet]=pn;
+    p->sommet++;
+
+  }
 
   return 0 ;
 
