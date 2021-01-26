@@ -15,6 +15,12 @@ test_abr.o: test_abr.c abr.h
 test_abr: test_abr.o pile.o file.o abr.o
 	gcc -o test_abr abr.o pile.o file.o test_abr.o
 
+test_file.o : test_file.c file.h file.o
+	gcc -Wall -c test_file.c
+
+test_file: file.c file.h test_file.o
+	gcc -o test_file file.o test_file.o
+
 clean:
 	rm -f *.o *~ test_abr
 
