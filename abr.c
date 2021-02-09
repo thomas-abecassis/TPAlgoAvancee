@@ -125,20 +125,35 @@ void afficher_arbre (Arbre_t a, int niveau)
 
 int hauteur_arbre_r (Arbre_t a)
 {
-  /*
-    a completer
-  */
+  if(feuille(a))
+    return 0;
   
-  return 0 ;
+  int g=0;
+  int d=0;
+é
+  if(a.fgauche!=NULL)
+    g=hauteur_arbre_r(a.fgauche);
+  if(a.fdroite!=NULL)
+    d=hauteur_arbre_r(a.fdroite);
+  return max(g,d) + 1;
 }
 
 int hauteur_arbre_nr (Arbre_t a)
 {
-  /*
-    a completer
-  */
-  
-  return 0 ;
+  //ne marche pas
+  ppile_t p = creer_pile();
+  empiler(p, a);
+  Arbre_t arbreCourant;
+
+  while(!pile_vide(p)){
+    arbreCourant = depiler(p);
+    if(arbreCourant->fgauche!=NULL)
+      empiler(p, arbreCourant->fgauche);
+    if(arbreCourant->fdroite!=NULL)
+      empiler(p, arbreCourant->fdroite);
+  }
+
+  return 1;
 }
 
 
@@ -171,20 +186,35 @@ void afficher_nombre_noeuds_par_niveau (Arbre_t a)
 
 int nombre_cles_arbre_r (Arbre_t a)
 {
-  /*
-    a completer
-  */
+  if(feuille(a))
+    return 1;
   
-  return 0 ;
+  int g=0;
+  int d=0;
+
+  if(a.fgauche!=NULL)
+    g=hauteur_arbre_r(a.fgauche);
+  if(a.fdroite!=NULL)
+    d=hauteur_arbre_r(a.fdroite);
+  return g + d + 1;
 }
 
 int nombre_cles_arbre_nr (Arbre_t a)
 {
-  /*
-    a completer
-  */
-  
-  return 0 ;
+  pfile_t f = creer_file();
+  enfiler(f, a);
+  Arbre_t arbreCourant;
+  int compteur = 0;
+  while(!file_vide(f)){
+    compteur++;
+    arbreCourant = defiler(f);
+    if(arbreCourant->fgauche!=NULL)
+      enfiler(f, arbreCourant->fgauche);
+    if(arbreCourant->fdroite!=NULL)
+      enfiler(f, arbreCourant->fdroite);
+  }
+
+  return compteur;
 }
 
 int trouver_cle_min (Arbre_t a)
