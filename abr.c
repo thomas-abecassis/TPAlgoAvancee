@@ -147,20 +147,35 @@ int hauteur_arbre_r (Arbre_t a)
 
 int hauteur_arbre_nr (Arbre_t a)
 {
-  //ne marche pas
-  ppile_t p = creer_pile();
-  empiler(p, a);
-  Arbre_t arbreCourant;
+    if (a == NULL) 
+        return 0; 
+  
+    pfile_t f = creer_file(); 
 
-  while(!pile_vide(p)){
-    arbreCourant = depiler(p);
-    if(arbreCourant->fgauche!=NULL)
-      empiler(p, arbreCourant->fgauche);
-    if(arbreCourant->fdroite!=NULL)
-      empiler(p, arbreCourant->fdroite);
-  }
+    enfiler(f,a); 
+    int hauteur = -1; 
+  
+    while (!file_vide(f)) 
+    { 
+        if (file_vide(f)) 
+            return hauteur; 
+  
+        hauteur++; 
+        int taille = f->tete-f->queue;
+        if(taille<0)
+          taille=-taille;
 
-  return 1;
+        while (taille > 0) 
+        { 
+            Arbre_t arbreCourant = defiler(f); 
+            if (arbreCourant->fgauche != NULL) 
+                enfiler(f,arbreCourant->fgauche); 
+            if (arbreCourant->fdroite != NULL) 
+                enfiler(f,arbreCourant->fdroite); 
+            taille--; 
+        } 
+    } 
+    return hauteur;
 }
 
 
@@ -170,15 +185,17 @@ void parcourir_arbre_largeur (Arbre_t a)
   enfiler(f, a);
   Arbre_t arbreCourant;
 
+  printf("\n parcours en largeur : \n");
+
   while(!file_vide(f)){
     arbreCourant = defiler(f);
+    printf("%d ", arbreCourant->cle);
     if(arbreCourant->fgauche!=NULL)
       enfiler(f, arbreCourant->fgauche);
     if(arbreCourant->fdroite!=NULL)
       enfiler(f, arbreCourant->fdroite);
   }
-
-  return ;
+  printf(" \n ");
 }
 
 void afficher_nombre_noeuds_par_niveau (Arbre_t a)
