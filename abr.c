@@ -348,9 +348,7 @@ Arbre_t detruire_cle_arbre (Arbre_t a, int cle)
 
 Arbre_t intersection_deux_arbres (Arbre_t a1, Arbre_t a2)
 {
-  /*
-    a completer
-  */
+  
 
   return NULL ;
   
