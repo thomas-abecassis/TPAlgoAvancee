@@ -394,31 +394,159 @@ Arbre_t rechercher_cle_inf_arbre (Arbre_t a, int valeur)
 
 Arbre_t detruire_cle_arbre (Arbre_t a, int cle)
 {
-  /*
-    a completer
-  */
 
-  return NULL ;
+  if(a->fgauche != NULL){
+    if(a->fgauche->cle==cle){
+
+      Arbre_t g = a->fgauche->fgauche;
+      Arbre_t d =a->fgauche->fdroite;
+
+      if(feuille(a->fgauche)){
+        a->fgauche=NULL;
+      }
+
+      else if((g!=NULL && d==NULL) || (g==NULL && d!=NULL)){
+        Arbre_t temp;
+        if(g!=NULL)
+          temp = g;
+        else
+          temp = d;
+
+        a->fgauche = temp;
+      }
+
+      else{
+        a->fgauche=d;
+        while(d->fgauche!=NULL)
+          d=d->fgauche;
+        d->fgauche=g;
+      }
+    }
+    else{
+      detruire_cle_arbre(a->fgauche, cle);
+    }
+  }
+
+
+  if(a->fdroite != NULL){
+    if(a->fdroite->cle==cle){
+
+      Arbre_t g = a->fdroite->fgauche;
+      Arbre_t d =a->fdroite->fdroite;
+
+      if(feuille(a->fgauche)){
+        a->fdroite=NULL;
+      }
+
+      else if((g!=NULL && d==NULL) || (g==NULL && d!=NULL)){
+        Arbre_t temp;
+        if(g!=NULL)
+          temp = g;
+        else
+          temp = d;
+
+        a->fdroite = temp;
+      }
+
+      else{
+        a->fdroite=d;
+        while(d->fdroite!=NULL)
+          d=d->fdroite;
+        d->fdroite=g;
+      }
+    }
+    else{
+      detruire_cle_arbre(a->fdroite, cle);
+    }
+  }
+
+  return a;
 }
 
 
 
 Arbre_t intersection_deux_arbres (Arbre_t a1, Arbre_t a2)
 {
-  /*
-    a completer
-  */
+  Arbre_t inter = NULL;
+  ppile_t p1, p2; 
+  p1 = creer_pile();
+  p2 = creer_pile();
 
-  return NULL ;
+  while (1) 
+  { 
+      if (a1 != NULL) 
+      { 
+          empiler(p1, a1); 
+          a1 = a1->fgauche; 
+      } 
+
+      else if (a2 !=NULL) 
+      { 
+          empiler(p2, a2); 
+          a2 = a2->fgauche; 
+      } 
   
+      else if (!pile_vide(p1) && !pile_vide(p2)) 
+      { 
+          a1 = depiler(p1); 
+          a2 = depiler(p2); 
+
+          if (a1->cle == a2->cle) 
+          {  
+              ajouter_cle(inter, a1->cle);
+              a1 = a1->fdroite; 
+              a2 = a2->fdroite; 
+          } 
+
+          else if (a1->cle < a2->cle) 
+          { 
+              empiler(p2, a2);
+              a1 = a1->fdroite; 
+              a2 = NULL; 
+          } 
+          else if (a1->cle > a2->cle) 
+          { 
+              empiler(p1,a1);
+              a2 = a2->fdroite; 
+              a1 = NULL; 
+          } 
+      }
+      else  break; 
+  } 
+  
+  return inter;
+
 }
 
 Arbre_t union_deux_arbres (Arbre_t a1, Arbre_t a2)
 {
-  /*
-    a completer
-  */
+  pfile_t f1 = creer_file();
+  pfile_t f2 = creer_file();
 
-  return NULL ;
+  enfiler(f1, a1);
+  enfiler(f2, a2);
+
+  Arbre_t arbreCourant1, arbreCourant2, uni;
+  uni = NULL;
+
+  while(!file_vide(f1)){
+    arbreCourant1 = defiler(f1);
+    ajouter_cle(uni, arbreCourant1->cle);
+    if(arbreCourant1->fgauche!=NULL)
+      enfiler(f1, arbreCourant1->fgauche);
+    if(arbreCourant1->fdroite!=NULL)
+      enfiler(f1, arbreCourant1->fdroite);
+ }
+
+  while(!file_vide(f2)){
+    arbreCourant2 = defiler(f2);
+    ajouter_cle(uni, arbreCourant2->cle);
+    if(arbreCourant2->fgauche!=NULL)
+      enfiler(f2, arbreCourant2->fgauche);
+    if(arbreCourant2->fdroite!=NULL)
+      enfiler(f2, arbreCourant2->fdroite);
+   }
+
+  return uni;
 }
 

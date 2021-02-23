@@ -5,9 +5,9 @@
 
 int main (int argc, char**argv)
 {
-  Arbre_t a ;
+  Arbre_t a;
 
-  if (argc != 2)
+  if (argc < 2)
     {
       fprintf (stderr, "il manque le parametre nom de fichier\n") ;
       exit (-1) ;
@@ -15,12 +15,14 @@ int main (int argc, char**argv)
 
   a = lire_arbre (argv[1]) ;
   
-  afficher_arbre (a,0) ;
+  afficher_arbre (a,0);
+  detruire_cle_arbre(a,18);
+  afficher_arbre (a,0);
   //imprimer_liste_cle_triee_nr(a);
   //int test = rechercher_cle_inf_arbre(a,10)->cle;
   //parcourir_arbre_largeur(a);
-  printf("Hauteur arbre : %d \n", hauteur_arbre_nr(a));
-  printf("Hauteur arbre : %d \n", hauteur_arbre_r(a));
+  //printf("Hauteur arbre : %d \n", hauteur_arbre_nr(a));
+  //printf("Hauteur arbre : %d \n", hauteur_arbre_r(a));
 
   //printf("inf : %d \n",test);
 
