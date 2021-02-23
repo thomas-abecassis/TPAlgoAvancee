@@ -147,20 +147,35 @@ int hauteur_arbre_r (Arbre_t a)
 
 int hauteur_arbre_nr (Arbre_t a)
 {
-  //ne marche pas
-  ppile_t p = creer_pile();
-  empiler(p, a);
-  Arbre_t arbreCourant;
+    if (a == NULL) 
+        return 0; 
+  
+    pfile_t f = creer_file(); 
 
-  while(!pile_vide(p)){
-    arbreCourant = depiler(p);
-    if(arbreCourant->fgauche!=NULL)
-      empiler(p, arbreCourant->fgauche);
-    if(arbreCourant->fdroite!=NULL)
-      empiler(p, arbreCourant->fdroite);
-  }
+    enfiler(f,a); 
+    int hauteur = -1; 
+  
+    while (!file_vide(f)) 
+    { 
+        if (file_vide(f)) 
+            return hauteur; 
+  
+        hauteur++; 
+        int taille = f->tete-f->queue;
+        if(taille<0)
+          taille=-taille;
 
-  return 1;
+        while (taille > 0) 
+        { 
+            Arbre_t arbreCourant = defiler(f); 
+            if (arbreCourant->fgauche != NULL) 
+                enfiler(f,arbreCourant->fgauche); 
+            if (arbreCourant->fdroite != NULL) 
+                enfiler(f,arbreCourant->fdroite); 
+            taille--; 
+        } 
+    } 
+    return hauteur;
 }
 
 
@@ -170,15 +185,17 @@ void parcourir_arbre_largeur (Arbre_t a)
   enfiler(f, a);
   Arbre_t arbreCourant;
 
+  printf("\n parcours en largeur : \n");
+
   while(!file_vide(f)){
     arbreCourant = defiler(f);
+    printf("%d ", arbreCourant->cle);
     if(arbreCourant->fgauche!=NULL)
       enfiler(f, arbreCourant->fgauche);
     if(arbreCourant->fdroite!=NULL)
       enfiler(f, arbreCourant->fdroite);
   }
-
-  return ;
+  printf(" \n ");
 }
 
 void afficher_nombre_noeuds_par_niveau (Arbre_t a)
@@ -236,23 +253,42 @@ int trouver_cle_min (Arbre_t a)
  
 
 void imprimer_liste_cle_triee_r (Arbre_t a)
-{
-  /*
-    a completer
-  */
+{   
+  if(a->fgauche!=NULL)
+    imprimer_liste_cle_triee_r(a->fgauche);
 
-  
-  return ;
+  printf("%d \n", a->cle);
+
+  if(a->fdroite!=NULL)
+    imprimer_liste_cle_triee_r(a->fdroite);
 }
 
 void imprimer_liste_cle_triee_nr (Arbre_t a)
 {
-  /*
-    a completer
-  */
+  ppile_t pile = creer_pile();
+  int fin = 0;
+  Arbre_t arbreCourant = a;
 
-  
-  return ;
+  while(!fin)
+  {
+      while (arbreCourant != NULL)
+      {
+          empiler(pile, arbreCourant);
+          arbreCourant = arbreCourant->fgauche;
+      }
+
+      if (pile_vide(pile))
+      {
+          fin = 1;
+      }
+      else
+      {
+          arbreCourant = depiler(pile);
+          printf("%d ", arbreCourant->cle);
+          arbreCourant = arbreCourant->fdroite;
+      }
+  }
+  printf("\n");
 }
 
 
@@ -316,22 +352,43 @@ int arbre_parfait (Arbre_t a)
 
 Arbre_t rechercher_cle_sup_arbre (Arbre_t a, int valeur)
 {
-  /*
-    a completer
-  */
 
-  return NULL ;
+  Arbre_t g = NULL;
+
+  if(a->fgauche!=NULL)
+    g = rechercher_cle_sup_arbre (a->fgauche, valeur);
+
+  if(g!=NULL)
+    return g;
+
+  if(a->cle > valeur)
+    return a;
+
+  if(a->fdroite!=NULL)
+    return rechercher_cle_sup_arbre (a->fdroite, valeur);
+
+  return NULL;
   
 }
 
 Arbre_t rechercher_cle_inf_arbre (Arbre_t a, int valeur)
 {
-  /*
-    a completer
-  */
+  Arbre_t d = NULL;
 
-  return NULL ;
-  
+  if(a->fdroite!=NULL)
+    d = rechercher_cle_inf_arbre (a->fdroite, valeur);
+
+  if(d!=NULL)
+    return d;
+
+  if(a->cle < valeur)
+    return a;
+
+  if(a->fgauche!=NULL)
+    return  rechercher_cle_inf_arbre (a->fgauche, valeur);
+
+  return NULL;
+
 }
 
 
