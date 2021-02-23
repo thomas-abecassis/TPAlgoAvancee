@@ -228,23 +228,42 @@ int trouver_cle_min (Arbre_t a)
  
 
 void imprimer_liste_cle_triee_r (Arbre_t a)
-{
-  /*
-    a completer
-  */
+{   
+  if(a->fgauche!=NULL)
+    imprimer_liste_cle_triee_r(a->fgauche);
 
-  
-  return ;
+  printf("%d \n", a->cle);
+
+  if(a->fdroite!=NULL)
+    imprimer_liste_cle_triee_r(a->fdroite);
 }
 
 void imprimer_liste_cle_triee_nr (Arbre_t a)
 {
-  /*
-    a completer
-  */
+  ppile_t pile = creer_pile();
+  int fin = 0;
+  Arbre_t arbreCourant = a;
 
-  
-  return ;
+  while(!fin)
+  {
+      while (arbreCourant != NULL)
+      {
+          empiler(pile, arbreCourant);
+          arbreCourant = arbreCourant->fgauche;
+      }
+
+      if (pile_vide(pile))
+      {
+          fin = 1;
+      }
+      else
+      {
+          arbreCourant = depiler(pile);
+          printf("%d ", arbreCourant->cle);
+          arbreCourant = arbreCourant->fdroite;
+      }
+  }
+  printf("\n");
 }
 
 

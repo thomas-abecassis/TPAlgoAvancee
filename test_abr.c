@@ -16,6 +16,7 @@ int main (int argc, char**argv)
   a = lire_arbre (argv[1]) ;
   
   afficher_arbre (a,0) ;
+  imprimer_liste_cle_triee_nr(a);
 
   /*
      appeler les fonctions que vous
