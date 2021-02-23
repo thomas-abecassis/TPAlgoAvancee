@@ -17,6 +17,9 @@ int main (int argc, char**argv)
   
   afficher_arbre (a,0) ;
   imprimer_liste_cle_triee_nr(a);
+  int test = rechercher_cle_inf_arbre(a,10)->cle;
+
+  printf("inf : %d \n",test);
 
   /*
      appeler les fonctions que vous

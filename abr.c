@@ -335,22 +335,43 @@ int arbre_parfait (Arbre_t a)
 
 Arbre_t rechercher_cle_sup_arbre (Arbre_t a, int valeur)
 {
-  /*
-    a completer
-  */
 
-  return NULL ;
+  Arbre_t g = NULL;
+
+  if(a->fgauche!=NULL)
+    g = rechercher_cle_sup_arbre (a->fgauche, valeur);
+
+  if(g!=NULL)
+    return g;
+
+  if(a->cle > valeur)
+    return a;
+
+  if(a->fdroite!=NULL)
+    return rechercher_cle_sup_arbre (a->fdroite, valeur);
+
+  return NULL;
   
 }
 
 Arbre_t rechercher_cle_inf_arbre (Arbre_t a, int valeur)
 {
-  /*
-    a completer
-  */
+  Arbre_t d = NULL;
 
-  return NULL ;
-  
+  if(a->fdroite!=NULL)
+    d = rechercher_cle_inf_arbre (a->fdroite, valeur);
+
+  if(d!=NULL)
+    return d;
+
+  if(a->cle < valeur)
+    return a;
+
+  if(a->fgauche!=NULL)
+    return  rechercher_cle_inf_arbre (a->fgauche, valeur);
+
+  return NULL;
+
 }
 
 
