@@ -44,3 +44,11 @@ Arbre_t detruire_cle_arbre (Arbre_t a, int cle) ;
 Arbre_t intersection_deux_arbres (Arbre_t a1, Arbre_t a2) ;
 
 Arbre_t union_deux_arbres (Arbre_t a1, Arbre_t a2) ;
+
+Arbre_t rotation_gauche(Arbre_t a); 
+
+Arbre_t rotation_droite(Arbre_t a);
+
+Arbre_t double_rotation_gauche(Arbre_t a);
+
+Arbre_t rotation_droite(Arbre_t a);

@@ -249,4 +249,36 @@ void imprimer_liste_cle_triee_nr (Arbre_t a)
 {
   /*
     a completer
-  */
+  */}
+
+Arbre_t rotation_gauche(Arbre_t a){
+    Arbre_t newsom=a->fdroite;
+    Arbre_t newfils_a=a->fdroite->fgauche;
+
+    newsom->fgauche=a;
+    a->droite=newfils_a;
+    return newsom;
+
+}
+
+Arbre_t rotation_droite(Arbre_t a){
+    Arbre_t newsom=a->fgauche;
+    Arbre_t newfils_a=a->fgauche->fdroite;
+
+    newsom->fdroite=a;
+    a->fdroite=newfils_a;
+    return newsom;
+}
+
+Arbre_t double_rotation_gauche(Arbre_t a){
+    a->fdroite=rotation_droite(a->fdroite);
+    a=rotation_gauche(a);
+    return a;
+}
+
+Arbre_t double_rotation_droite(Arbre_t a){
+    a->fgauche=rotation_gauche(a->fgauche);
+    a=rotation_droite(a);
+    return a;
+}
+
