@@ -130,11 +130,10 @@ int hauteur_arbre_r (Arbre_t a)
   
   int g=0;
   int d=0;
-é
-  if(a.fgauche!=NULL)
-    g=hauteur_arbre_r(a.fgauche);
-  if(a.fdroite!=NULL)
-    d=hauteur_arbre_r(a.fdroite);
+  if(a->fgauche!=NULL)
+    g=hauteur_arbre_r(a->fgauche);
+  if(a->fdroite!=NULL)
+    d=hauteur_arbre_r(a->fdroite);
   return max(g,d) + 1;
 }
 
@@ -192,10 +191,10 @@ int nombre_cles_arbre_r (Arbre_t a)
   int g=0;
   int d=0;
 
-  if(a.fgauche!=NULL)
-    g=hauteur_arbre_r(a.fgauche);
-  if(a.fdroite!=NULL)
-    d=hauteur_arbre_r(a.fdroite);
+  if(a->fgauche!=NULL)
+    g=hauteur_arbre_r(a->fgauche);
+  if(a->fdroite!=NULL)
+    d=hauteur_arbre_r(a->fdroite);
   return g + d + 1;
 }
 
