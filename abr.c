@@ -8,6 +8,14 @@
 
 #define max(a,b) ((a)>(b)?(a):(b))
 
+int min(int a,int b){
+  if(a<b){
+    return a;
+  }
+  else{
+    return b;
+  }
+}
 
 int feuille (Arbre_t a)
 {
@@ -130,11 +138,10 @@ int hauteur_arbre_r (Arbre_t a)
   
   int g=0;
   int d=0;
-é
-  if(a.fgauche!=NULL)
-    g=hauteur_arbre_r(a.fgauche);
-  if(a.fdroite!=NULL)
-    d=hauteur_arbre_r(a.fdroite);
+  if(a->fgauche!=NULL)
+    g=hauteur_arbre_r(a->fgauche);
+  if(a->fdroite!=NULL)
+    d=hauteur_arbre_r(a->fdroite);
   return max(g,d) + 1;
 }
 
@@ -192,10 +199,10 @@ int nombre_cles_arbre_r (Arbre_t a)
   int g=0;
   int d=0;
 
-  if(a.fgauche!=NULL)
-    g=hauteur_arbre_r(a.fgauche);
-  if(a.fdroite!=NULL)
-    d=hauteur_arbre_r(a.fdroite);
+  if(a->fgauche!=NULL)
+    g=hauteur_arbre_r(a->fgauche);
+  if(a->fdroite!=NULL)
+    d=hauteur_arbre_r(a->fdroite);
   return g + d + 1;
 }
 
@@ -251,18 +258,55 @@ void imprimer_liste_cle_triee_nr (Arbre_t a)
 
 int arbre_plein (Arbre_t a)
 {
-  /*
-    a completer
-  */
-  
-  return 0 ;
+  if(a->fdroite==NULL){
+    if(a->fgauche==NULL){
+      return 1;
+    }
+    else{
+      return 0;
+    }
+  }
+  else{
+    if(a->fgauche==NULL){
+      return 0;
+    }
+    return min(arbre_plein( a->fgauche),arbre_plein(a->fdroite));
+
+  }
+}
+void element_abr(Arbre_t a,ppile_t p){
+  if(a->fdroite!=NULL){
+    empiler(p,a->fdroite);
+    element_abr(a->fdroite,p);
+  }
+  if(a->fgauche!=NULL){
+    empiler(p,a->fgauche);
+    element_abr(a->fgauche,p);
+  }
+
+}
+int puissance(int a, int b){
+  int r=1;
+  for(int i=0;i<b;i++){
+    r=r*a;
+  }
+  return r;
 }
 
 int arbre_parfait (Arbre_t a)
 {
-  /*
-    a completer
-  */
+  int h=hauteur_arbre_r(a);
+  ppile_t p=creer_pile();
+  element_abr( a, p);
+  int nb=0;
+  while(pile_vide(p)!=1){
+    nb++;
+    //pnoeud_t azerty=depiler(p);
+    depiler(p);
+  }
+  if(nb==puissance(2,h)){
+    return 1;
+  }
   
   return 0 ;
 }
